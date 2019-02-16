@@ -53,8 +53,9 @@ public class PackagingHelperTest {
 		items.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
 		items.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
 		items.add(new PackagingItem(3, Double.valueOf(81), Double.valueOf(76)));
+		items.add(new PackagingItem(5, 30.18, Double.valueOf(9)));
 		List<List<PackagingItem>> combinations = packaginHelper.getCombinations(items);
-		assertEquals(6, combinations.size());
+		assertEquals(15, combinations.size());
 	}
 
 }
