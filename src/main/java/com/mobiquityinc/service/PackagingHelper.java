@@ -97,7 +97,6 @@ public class PackagingHelper {
 					packages.append(item.getIndexNumber()).append(",");
 				});
 				packages.replace(packages.length() - 1, packages.length(), "");
-				// packages.replace(packages.lastIndexOf(","), packages.length(), "");
 				packages.append(System.lineSeparator());
 			}
 		}
