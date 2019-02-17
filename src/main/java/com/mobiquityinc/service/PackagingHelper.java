@@ -64,8 +64,8 @@ public class PackagingHelper {
 
 	protected List<List<PackagingItem>> getCombinations(List<PackagingItem> items) {
 		final List<List<PackagingItem>> combinations = new ArrayList<>();
-		for (int i = 0; i < items.size(); i++) {
-			final PackagingItem currentItem = items.get(i);
+		items.forEach(item -> {
+			final PackagingItem currentItem = item;
 			final int combinationSize = combinations.size();
 			for (int j = 0; j < combinationSize; j++) {
 				final List<PackagingItem> combination = combinations.get(j);
@@ -76,7 +76,8 @@ public class PackagingHelper {
 			final List<PackagingItem> current = new ArrayList<PackagingItem>();
 			current.add(currentItem);
 			combinations.add(current);
-		}
+		});
+
 		return combinations;
 	}
 
