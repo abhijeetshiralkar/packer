@@ -73,4 +73,21 @@ public class PackagingHelperTest {
 		combination.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
 		assertEquals(Double.valueOf(143), packaginHelper.getCombinationPrice(combination));
 	}
+
+	@Test
+	public void testgetBestCombinations() {
+		final Map<Double, List<List<PackagingItem>>> packagingCombinations = new HashMap<>();
+		// 81 : (1,53.38,€45) (4,72.30,€76)
+		final List<PackagingItem> combination1 = new ArrayList<>();
+		combination1.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
+		final List<PackagingItem> combination2 = new ArrayList<>();
+		combination2.add(new PackagingItem(4, 72.30, Double.valueOf(76)));
+		final List<List<PackagingItem>> combinations = new ArrayList<>();
+		combinations.add(combination1);
+		combinations.add(combination2);
+		packagingCombinations.put(Double.valueOf(81), combinations);
+		final Map<Double, List<PackagingItem>> bestCombination = packaginHelper
+				.getBestCombinations(packagingCombinations);
+		assertEquals(combination2, bestCombination.get(Double.valueOf(81)));
+	}
 }

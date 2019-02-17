@@ -82,6 +82,13 @@ public class PackagingHelper {
 	}
 
 	public String deriveFinalPackages(Map<Double, List<List<PackagingItem>>> packagingCombinations) {
+		final Map<Double, List<PackagingItem>> bestCombinations = getBestCombinations(packagingCombinations);
+
+		return null;
+	}
+
+	protected Map<Double, List<PackagingItem>> getBestCombinations(
+			Map<Double, List<List<PackagingItem>>> packagingCombinations) {
 		final Map<Double, List<PackagingItem>> bestCombinations = new HashMap<>();
 		for (final Map.Entry<Double, List<List<PackagingItem>>> entry : packagingCombinations.entrySet()) {
 			final Double weightLimit = entry.getKey();
@@ -98,11 +105,15 @@ public class PackagingHelper {
 						bestPrice = combinationPrice;
 						bestWeight = combinationWeight;
 						bestCombination = combination;
+					} else if (combinationPrice == bestPrice && combinationWeight < bestWeight) {
+						bestWeight = combinationWeight;
+						bestCombination = combination;
 					}
 				}
 			}
+			bestCombinations.put(weightLimit, bestCombination);
 		}
-		return null;
+		return bestCombinations;
 	}
 
 	protected Double getCombinationPrice(List<PackagingItem> combination) {
