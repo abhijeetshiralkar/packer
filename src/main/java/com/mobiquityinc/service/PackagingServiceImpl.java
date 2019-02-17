@@ -14,6 +14,6 @@ public class PackagingServiceImpl implements PackagingService {
 		packagingHelper.filterPackagingItems(packagingItemsMap);
 		final Map<Double, List<List<PackagingItem>>> packagingCombinations = packagingHelper
 				.derivePackagingItemCombinations(packagingItemsMap);
-		return packagingHelper.deriveFinalPackage(packagingCombinations);
+		return packagingHelper.deriveFinalPackages(packagingCombinations);
 	}
 }

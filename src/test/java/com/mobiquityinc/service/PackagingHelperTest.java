@@ -66,4 +66,11 @@ public class PackagingHelperTest {
 		assertEquals(Double.valueOf(142), packaginHelper.getCombinationWeight(combination));
 	}
 
+	@Test
+	public void testGetCombinationPrice() {
+		final List<PackagingItem> combination = new ArrayList<>();
+		combination.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
+		combination.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
+		assertEquals(Double.valueOf(143), packaginHelper.getCombinationPrice(combination));
+	}
 }
