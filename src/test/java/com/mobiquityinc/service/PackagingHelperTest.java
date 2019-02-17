@@ -93,6 +93,15 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testCreatePackagesFromBestCombinations() {
+		final Map<Double, List<PackagingItem>> bestCombinations = new HashMap<>();
+		// 81 : (4,72.30,€76)
+		// 8 : (1,15.3,€34)
+		// 75 : (2,14.55,€74) (7,60.02,€74)
+		final List<PackagingItem> firstCombination = new ArrayList<>();
+		firstCombination.add(new PackagingItem(4, 72.30, Double.valueOf(76)));
+		bestCombinations.put(Double.valueOf(81), firstCombination);
+		final String result = "4\n";
+		assertEquals(result, packaginHelper.createPackagesFromBestCombinations(bestCombinations));
 
 	}
 }
