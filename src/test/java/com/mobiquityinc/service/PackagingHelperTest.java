@@ -24,10 +24,10 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testDerivePackagingItems() {
-		List<String> inputCases = new ArrayList<>();
+		final List<String> inputCases = new ArrayList<>();
 		inputCases.add("81 : (1,53.38,€45) (2,88.62,€98) (3,78.48,€3)");
 		inputCases.add("75 : (1,85.31,€29) (2,14.55,€74)");
-		Map<Double, List<PackagingItem>> packagingItemsMap = packaginHelper.derivePackagingItems(inputCases);
+		final Map<Double, List<PackagingItem>> packagingItemsMap = packaginHelper.derivePackagingItems(inputCases);
 		assertEquals(2, packagingItemsMap.size());
 		assertNotNull(packagingItemsMap.get(Double.valueOf(81)));
 		assertNotNull(packagingItemsMap.get(Double.valueOf(75)));
@@ -37,8 +37,8 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testFilterPackagingItems() {
-		Map<Double, List<PackagingItem>> packagingItemsMap = new HashMap<>();
-		List<PackagingItem> items = new ArrayList<>();
+		final Map<Double, List<PackagingItem>> packagingItemsMap = new HashMap<>();
+		final List<PackagingItem> items = new ArrayList<>();
 		items.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
 		items.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
 		items.add(new PackagingItem(3, Double.valueOf(81), Double.valueOf(76)));
@@ -49,13 +49,21 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testGetCombinations() {
-		List<PackagingItem> items = new ArrayList<>();
+		final List<PackagingItem> items = new ArrayList<>();
 		items.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
 		items.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
 		items.add(new PackagingItem(3, Double.valueOf(81), Double.valueOf(76)));
 		items.add(new PackagingItem(5, 30.18, Double.valueOf(9)));
-		List<List<PackagingItem>> combinations = packaginHelper.getCombinations(items);
+		final List<List<PackagingItem>> combinations = packaginHelper.getCombinations(items);
 		assertEquals(15, combinations.size());
+	}
+
+	@Test
+	public void testGetCombinationWeight() {
+		final List<PackagingItem> combination = new ArrayList<>();
+		combination.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
+		combination.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
+		assertEquals(Double.valueOf(142), packaginHelper.getCombinationWeight(combination));
 	}
 
 }

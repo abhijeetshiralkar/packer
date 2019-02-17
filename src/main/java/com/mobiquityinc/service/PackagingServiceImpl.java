@@ -9,12 +9,11 @@ public class PackagingServiceImpl implements PackagingService {
 
 	@Override
 	public String createPackage(List<String> inputCases) {
-		PackagingHelper packagingHelper = new PackagingHelper();
-		Map<Double, List<PackagingItem>> packagingItemsMap = packagingHelper.derivePackagingItems(inputCases);
+		final PackagingHelper packagingHelper = new PackagingHelper();
+		final Map<Double, List<PackagingItem>> packagingItemsMap = packagingHelper.derivePackagingItems(inputCases);
 		packagingHelper.filterPackagingItems(packagingItemsMap);
-		Map<Double, List<List<PackagingItem>>> packaginCombinations = packagingHelper
+		final Map<Double, List<List<PackagingItem>>> packagingCombinations = packagingHelper
 				.derivePackagingItemCombinations(packagingItemsMap);
-
-		return null;
+		return packagingHelper.deriveFinalPackage(packagingCombinations);
 	}
 }

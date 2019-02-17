@@ -58,6 +58,7 @@ public class PackagingHelper {
 		for (final Map.Entry<Double, List<PackagingItem>> entry : packagingItemsMap.entrySet()) {
 			final List<PackagingItem> items = entry.getValue();
 			final List<List<PackagingItem>> combinations = getCombinations(items);
+			packagingItemCombinations.put(entry.getKey(), combinations);
 		}
 		return packagingItemCombinations;
 	}
@@ -78,6 +79,31 @@ public class PackagingHelper {
 			combinations.add(current);
 		});
 		return combinations;
+	}
+
+	public String deriveFinalPackage(Map<Double, List<List<PackagingItem>>> packagingCombinations) {
+		final Map<Double, List<PackagingItem>> bestCombinations = new HashMap<>();
+		for (final Map.Entry<Double, List<List<PackagingItem>>> entry : packagingCombinations.entrySet()) {
+			final Double weightLimit = entry.getKey();
+			final List<List<PackagingItem>> combinations = entry.getValue();
+			final double bestPrice = 0;
+			bestCombinations.put(weightLimit, null);
+			final List<PackagingItem> bestCombination = new ArrayList<>();
+			combinations.forEach(combination -> {
+				if (getCombinationWeight(combination) <= weightLimit) {
+
+				}
+			});
+		}
+		return null;
+	}
+
+	protected Double getCombinationWeight(List<PackagingItem> combination) {
+		Double combinationWeight = Double.valueOf(0);
+		for (final PackagingItem item : combination) {
+			combinationWeight += item.getWeight();
+		}
+		return combinationWeight;
 	}
 
 }
