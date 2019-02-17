@@ -63,6 +63,11 @@ public class PackagingHelper {
 		return packagingItemCombinations;
 	}
 
+	public String deriveFinalPackages(Map<Double, List<List<PackagingItem>>> packagingCombinations) {
+		final Map<Double, List<PackagingItem>> bestCombinations = getBestCombinations(packagingCombinations);
+		return createPackagesFromBestCombinations(bestCombinations);
+	}
+
 	protected List<List<PackagingItem>> getCombinations(List<PackagingItem> items) {
 		final List<List<PackagingItem>> combinations = new ArrayList<>();
 		items.forEach(item -> {
@@ -81,10 +86,21 @@ public class PackagingHelper {
 		return combinations;
 	}
 
-	public String deriveFinalPackages(Map<Double, List<List<PackagingItem>>> packagingCombinations) {
-		final Map<Double, List<PackagingItem>> bestCombinations = getBestCombinations(packagingCombinations);
-
-		return null;
+	protected String createPackagesFromBestCombinations(Map<Double, List<PackagingItem>> bestCombinations) {
+		final StringBuilder packages = new StringBuilder();
+		for (final Map.Entry<Double, List<PackagingItem>> entry : bestCombinations.entrySet()) {
+			final List<PackagingItem> combination = entry.getValue();
+			if (combination.isEmpty()) {
+				packages.append("-").append(System.lineSeparator());
+			} else {
+				combination.forEach(item -> {
+					packages.append(item.getIndexNumber()).append(",");
+				});
+				// packages.replace(packages.lastIndexOf(","), packages.length(), "");
+				packages.append(System.lineSeparator());
+			}
+		}
+		return packages.toString();
 	}
 
 	protected Map<Double, List<PackagingItem>> getBestCombinations(
