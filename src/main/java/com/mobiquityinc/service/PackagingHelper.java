@@ -2,7 +2,7 @@ package com.mobiquityinc.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +19,7 @@ public class PackagingHelper {
 	 * @return
 	 */
 	public Map<Double, List<PackagingItem>> derivePackagingItems(List<String> inputCases) {
-		final Map<Double, List<PackagingItem>> packagingItemsMap = new HashMap<>();
+		final Map<Double, List<PackagingItem>> packagingItemsMap = new LinkedHashMap<>();
 		inputCases.forEach(input -> {
 			final String[] arr = input.split(":");
 			final Double weightLimit = Double.parseDouble(arr[0]);
@@ -54,7 +54,7 @@ public class PackagingHelper {
 
 	public Map<Double, List<List<PackagingItem>>> derivePackagingItemCombinations(
 			Map<Double, List<PackagingItem>> packagingItemsMap) {
-		final Map<Double, List<List<PackagingItem>>> packagingItemCombinations = new HashMap<>();
+		final Map<Double, List<List<PackagingItem>>> packagingItemCombinations = new LinkedHashMap<>();
 		for (final Map.Entry<Double, List<PackagingItem>> entry : packagingItemsMap.entrySet()) {
 			final List<PackagingItem> items = entry.getValue();
 			final List<List<PackagingItem>> combinations = getCombinations(items);
@@ -96,6 +96,7 @@ public class PackagingHelper {
 				combination.forEach(item -> {
 					packages.append(item.getIndexNumber()).append(",");
 				});
+				packages.replace(packages.length() - 1, packages.length(), "");
 				// packages.replace(packages.lastIndexOf(","), packages.length(), "");
 				packages.append(System.lineSeparator());
 			}
@@ -105,13 +106,12 @@ public class PackagingHelper {
 
 	protected Map<Double, List<PackagingItem>> getBestCombinations(
 			Map<Double, List<List<PackagingItem>>> packagingCombinations) {
-		final Map<Double, List<PackagingItem>> bestCombinations = new HashMap<>();
+		final Map<Double, List<PackagingItem>> bestCombinations = new LinkedHashMap<>();
 		for (final Map.Entry<Double, List<List<PackagingItem>>> entry : packagingCombinations.entrySet()) {
 			final Double weightLimit = entry.getKey();
 			final List<List<PackagingItem>> combinations = entry.getValue();
 			double bestPrice = 0;
 			double bestWeight = weightLimit;
-			bestCombinations.put(weightLimit, null);
 			List<PackagingItem> bestCombination = new ArrayList<>();
 			for (final List<PackagingItem> combination : combinations) {
 				final Double combinationWeight = getCombinationWeight(combination);

@@ -33,15 +33,4 @@ public class Packer {
 			throw new APIException(String.format("Technical exception occurred while processing file: ", filePath), e);
 		}
 	}
-
-	public static void main(String[] args) {
-		try {
-			System.out
-					.println(pack("/Users/abhijeetshiralkar/eclipse-workspace/packer/src/main/resources/packages.txt"));
-		} catch (final APIException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 }
