@@ -19,7 +19,7 @@ public class Packer {
 		}
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
-			List<String> inputCases = new ArrayList<>();
+			final List<String> inputCases = new ArrayList<>();
 			String line;
 			while ((line = reader.readLine()) != null) {
 				if (line.isEmpty()) {
@@ -27,10 +27,20 @@ public class Packer {
 				}
 				inputCases.add(line);
 			}
-			PackagingService packagingService = new PackagingServiceImpl();
-			return packagingService.createPackage(inputCases);
-		} catch (IOException e) {
+			final PackagingService packagingService = new PackagingServiceImpl();
+			return packagingService.createPackages(inputCases);
+		} catch (final IOException e) {
 			throw new APIException(String.format("Technical exception occurred while processing file: ", filePath), e);
+		}
+	}
+
+	public static void main(String[] args) {
+		try {
+			System.out
+					.println(pack("/Users/abhijeetshiralkar/eclipse-workspace/packer/src/main/resources/packages.txt"));
+		} catch (final APIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

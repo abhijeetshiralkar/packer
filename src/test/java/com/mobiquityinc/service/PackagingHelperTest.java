@@ -90,4 +90,9 @@ public class PackagingHelperTest {
 				.getBestCombinations(packagingCombinations);
 		assertEquals(combination2, bestCombination.get(Double.valueOf(81)));
 	}
+
+	@Test
+	public void testCreatePackagesFromBestCombinations() {
+
+	}
 }

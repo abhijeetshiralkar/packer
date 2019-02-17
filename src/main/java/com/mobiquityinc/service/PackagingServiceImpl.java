@@ -8,7 +8,7 @@ import com.mobiquityinc.model.PackagingItem;;
 public class PackagingServiceImpl implements PackagingService {
 
 	@Override
-	public String createPackage(List<String> inputCases) {
+	public String createPackages(List<String> inputCases) {
 		final PackagingHelper packagingHelper = new PackagingHelper();
 		final Map<Double, List<PackagingItem>> packagingItemsMap = packagingHelper.derivePackagingItems(inputCases);
 		packagingHelper.filterPackagingItems(packagingItemsMap);
