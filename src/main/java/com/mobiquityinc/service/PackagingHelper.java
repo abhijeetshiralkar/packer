@@ -66,18 +66,17 @@ public class PackagingHelper {
 		final List<List<PackagingItem>> combinations = new ArrayList<>();
 		items.forEach(item -> {
 			final PackagingItem currentItem = item;
-			final int combinationSize = combinations.size();
-			for (int j = 0; j < combinationSize; j++) {
-				final List<PackagingItem> combination = combinations.get(j);
+			// Temporary list to avoid concurrentmodificationexception
+			final List<List<PackagingItem>> tempCombinations = new ArrayList<>(combinations);
+			tempCombinations.forEach(combination -> {
 				final List<PackagingItem> newCombination = new ArrayList<PackagingItem>(combination);
 				newCombination.add(currentItem);
 				combinations.add(newCombination);
-			}
+			});
 			final List<PackagingItem> current = new ArrayList<PackagingItem>();
 			current.add(currentItem);
 			combinations.add(current);
 		});
-
 		return combinations;
 	}
 
