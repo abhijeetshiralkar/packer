@@ -146,5 +146,4 @@ public class PackagingHelper {
 		}
 		return combinationWeight;
 	}
-
 }
