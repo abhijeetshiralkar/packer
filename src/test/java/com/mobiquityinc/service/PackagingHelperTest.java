@@ -3,6 +3,8 @@ package com.mobiquityinc.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,6 +129,18 @@ public class PackagingHelperTest {
 				.derivePackagingItemCombinations(packagingItemsMap);
 		assertNotNull(packaginItemCombinations);
 		assertEquals(combinations, packaginItemCombinations.get(Double.valueOf(75)));
+	}
 
+	@Test
+	public void testDeriveFinalPackages() {
+		final PackagingHelper packagingHelper = Mockito.spy(PackagingHelper.class);
+		final Map<Double, List<List<PackagingItem>>> packagingCombinations = new HashMap<>();
+		final Map<Double, List<PackagingItem>> bestCombinations = new HashMap<>();
+		doReturn(bestCombinations).when(packagingHelper).getBestCombinations(packagingCombinations);
+		final String result = "testResult";
+		doReturn(result).when(packagingHelper).createPackagesFromBestCombinations(bestCombinations);
+		assertEquals(result, packagingHelper.deriveFinalPackages(packagingCombinations));
+		verify(packagingHelper, times(1)).getBestCombinations(packagingCombinations);
+		verify(packagingHelper, times(1)).createPackagesFromBestCombinations(bestCombinations);
 	}
 }
