@@ -2,6 +2,7 @@ package com.mobiquityinc.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.doReturn;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,6 +112,21 @@ public class PackagingHelperTest {
 	public void testderivePackagingItemCombinations() {
 		final PackagingHelper packagingHelper = Mockito.spy(PackagingHelper.class);
 		final Map<Double, List<PackagingItem>> packagingItemsMap = new HashMap<>();
+		final List<PackagingItem> items = new ArrayList<>();
+		items.add(new PackagingItem(1, 85.31, Double.valueOf(29)));
+		items.add(new PackagingItem(2, 14.55, Double.valueOf(74)));
+		items.add(new PackagingItem(7, 60.02, Double.valueOf(74)));
+		packagingItemsMap.put(Double.valueOf(75), items);
+		final List<List<PackagingItem>> combinations = new ArrayList<>();
+		final List<PackagingItem> firstCombination = new ArrayList<>();
+		firstCombination.add(new PackagingItem(2, 14.55, Double.valueOf(74)));
+		firstCombination.add(new PackagingItem(7, 60.02, Double.valueOf(74)));
+		combinations.add(firstCombination);
+		doReturn(combinations).when(packagingHelper).getCombinations(items);
+		final Map<Double, List<List<PackagingItem>>> packaginItemCombinations = packagingHelper
+				.derivePackagingItemCombinations(packagingItemsMap);
+		assertNotNull(packaginItemCombinations);
+		assertEquals(combinations, packaginItemCombinations.get(Double.valueOf(75)));
 
 	}
 }
