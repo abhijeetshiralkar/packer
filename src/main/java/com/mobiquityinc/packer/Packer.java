@@ -1,7 +1,6 @@
 package com.mobiquityinc.packer;
 
 import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.service.PackagingService;
 import com.mobiquityinc.service.PackagingServiceImpl;
 
 /**
@@ -19,7 +18,6 @@ public class Packer {
 		if (filePath.isEmpty()) {
 			throw new APIException("Please provide the filepath");
 		}
-		final PackagingService packagingService = new PackagingServiceImpl();
-		return packagingService.createPackagesFromInputFile(filePath);
+		return new PackagingServiceImpl().createPackagesFromInputFile(filePath);
 	}
 }
