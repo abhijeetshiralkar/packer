@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.mobiquityinc.model.PackagingItem;
 
@@ -76,7 +77,6 @@ public class PackagingHelperTest {
 	public void testgetBestCombinations() {
 		final PackagingHelper packaginHelper = new PackagingHelper();
 		final Map<Double, List<List<PackagingItem>>> packagingCombinations = new HashMap<>();
-		// 81 : (1,53.38,€45) (4,72.30,€76)
 		final List<PackagingItem> combination1 = new ArrayList<>();
 		combination1.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
 		final List<PackagingItem> combination2 = new ArrayList<>();
@@ -94,9 +94,6 @@ public class PackagingHelperTest {
 	public void testCreatePackagesFromBestCombinations() {
 		final PackagingHelper packaginHelper = new PackagingHelper();
 		final Map<Double, List<PackagingItem>> bestCombinations = new LinkedHashMap<>();
-		// 81 : (4,72.30,€76)
-		// 8 : (1,15.3,€34)
-		// 75 : (2,14.55,€74) (7,60.02,€74)
 		final List<PackagingItem> firstCombination = new ArrayList<>();
 		firstCombination.add(new PackagingItem(4, 72.30, Double.valueOf(76)));
 		bestCombinations.put(Double.valueOf(81), firstCombination);
@@ -108,6 +105,12 @@ public class PackagingHelperTest {
 		bestCombinations.put(Double.valueOf(75), thirdCombination);
 		final String result = "4\n-\n2,7\n";
 		assertEquals(result, packaginHelper.createPackagesFromBestCombinations(bestCombinations));
+	}
+
+	@Test
+	public void testderivePackagingItemCombinations() {
+		final PackagingHelper packagingHelper = Mockito.spy(PackagingHelper.class);
+		final Map<Double, List<PackagingItem>> packagingItemsMap = new HashMap<>();
 
 	}
 }

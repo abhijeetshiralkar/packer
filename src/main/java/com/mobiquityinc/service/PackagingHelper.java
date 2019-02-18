@@ -11,7 +11,7 @@ import com.mobiquityinc.model.PackagingItem;
 
 /**
  * Helper class for {@link PackagingServiceImpl}
- * 
+ *
  * @author abhijeetshiralkar
  *
  */
@@ -99,11 +99,11 @@ public class PackagingHelper {
 			// Temporary list to avoid concurrentmodificationexception
 			final List<List<PackagingItem>> tempCombinations = new ArrayList<>(combinations);
 			tempCombinations.forEach(combination -> {
-				final List<PackagingItem> newCombination = new ArrayList<PackagingItem>(combination);
+				final List<PackagingItem> newCombination = new ArrayList<>(combination);
 				newCombination.add(currentItem);
 				combinations.add(newCombination);
 			});
-			final List<PackagingItem> current = new ArrayList<PackagingItem>();
+			final List<PackagingItem> current = new ArrayList<>();
 			current.add(currentItem);
 			combinations.add(current);
 		});
@@ -124,9 +124,7 @@ public class PackagingHelper {
 			if (combination.isEmpty()) {
 				packages.append("-").append(System.lineSeparator());
 			} else {
-				combination.forEach(item -> {
-					packages.append(item.getIndexNumber()).append(",");
-				});
+				combination.forEach(item -> packages.append(item.getIndexNumber()).append(","));
 				packages.replace(packages.length() - 1, packages.length(), "");
 				packages.append(System.lineSeparator());
 			}

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.mobiquityinc.exception.APIException;
 import com.mobiquityinc.model.PackagingItem;
-import com.mobiquityinc.validation.PackagingValidator;;
+import com.mobiquityinc.validation.PackagingValidator;
 
 public class PackagingServiceImpl implements PackagingService {
 

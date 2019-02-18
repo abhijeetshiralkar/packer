@@ -14,11 +14,13 @@ import com.mobiquityinc.service.PackagingServiceImpl;
 /**
  * Class that would be used by programs to get the packages which are best
  * combinations based on different criterias like price and weight
- * 
+ *
  * @author abhijeetshiralkar
  *
  */
 public class Packer {
+	private Packer() {
+	}
 
 	public static String pack(String filePath) throws APIException {
 		if (filePath.isEmpty()) {
@@ -37,7 +39,8 @@ public class Packer {
 			final PackagingService packagingService = new PackagingServiceImpl();
 			return packagingService.createPackages(inputCases);
 		} catch (final IOException e) {
-			throw new APIException(String.format("Technical exception occurred while processing file: ", filePath), e);
+			throw new APIException(String.format("Technical exception occurred while processing file: %s", filePath),
+					e);
 		}
 	}
 }
