@@ -94,6 +94,23 @@ public class PackagingHelperTest {
 	}
 
 	@Test
+	public void testgetBestCombinationsEqualPrice() {
+		final PackagingHelper packaginHelper = new PackagingHelper();
+		final Map<Double, List<List<PackagingItem>>> packagingCombinations = new HashMap<>();
+		final List<PackagingItem> combination1 = new ArrayList<>();
+		combination1.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
+		final List<PackagingItem> combination2 = new ArrayList<>();
+		combination2.add(new PackagingItem(4, 52.30, Double.valueOf(45)));
+		final List<List<PackagingItem>> combinations = new ArrayList<>();
+		combinations.add(combination1);
+		combinations.add(combination2);
+		packagingCombinations.put(Double.valueOf(81), combinations);
+		final Map<Double, List<PackagingItem>> bestCombination = packaginHelper
+				.getBestCombinations(packagingCombinations);
+		assertEquals(combination2, bestCombination.get(Double.valueOf(81)));
+	}
+
+	@Test
 	public void testCreatePackagesFromBestCombinations() {
 		final PackagingHelper packaginHelper = new PackagingHelper();
 		final Map<Double, List<PackagingItem>> bestCombinations = new LinkedHashMap<>();
