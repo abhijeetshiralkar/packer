@@ -5,25 +5,19 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.mobiquityinc.model.PackagingItem;
 
 public class PackagingHelperTest {
 
-	PackagingHelper packaginHelper;
-
-	@Before
-	public void init() {
-		packaginHelper = new PackagingHelper();
-	}
-
 	@Test
 	public void testDerivePackagingItems() {
+		final PackagingHelper packaginHelper = new PackagingHelper();
 		final List<String> inputCases = new ArrayList<>();
 		inputCases.add("81 : (1,53.38,€45) (2,88.62,€98) (3,78.48,€3)");
 		inputCases.add("75 : (1,85.31,€29) (2,14.55,€74)");
@@ -37,6 +31,7 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testFilterPackagingItems() {
+		final PackagingHelper packaginHelper = new PackagingHelper();
 		final Map<Double, List<PackagingItem>> packagingItemsMap = new HashMap<>();
 		final List<PackagingItem> items = new ArrayList<>();
 		items.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
@@ -49,6 +44,7 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testGetCombinations() {
+		final PackagingHelper packaginHelper = new PackagingHelper();
 		final List<PackagingItem> items = new ArrayList<>();
 		items.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
 		items.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
@@ -60,6 +56,7 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testGetCombinationWeight() {
+		final PackagingHelper packaginHelper = new PackagingHelper();
 		final List<PackagingItem> combination = new ArrayList<>();
 		combination.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
 		combination.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
@@ -68,6 +65,7 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testGetCombinationPrice() {
+		final PackagingHelper packaginHelper = new PackagingHelper();
 		final List<PackagingItem> combination = new ArrayList<>();
 		combination.add(new PackagingItem(1, 53.38, Double.valueOf(45)));
 		combination.add(new PackagingItem(2, 88.62, Double.valueOf(98)));
@@ -76,6 +74,7 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testgetBestCombinations() {
+		final PackagingHelper packaginHelper = new PackagingHelper();
 		final Map<Double, List<List<PackagingItem>>> packagingCombinations = new HashMap<>();
 		// 81 : (1,53.38,€45) (4,72.30,€76)
 		final List<PackagingItem> combination1 = new ArrayList<>();
@@ -93,14 +92,21 @@ public class PackagingHelperTest {
 
 	@Test
 	public void testCreatePackagesFromBestCombinations() {
-		final Map<Double, List<PackagingItem>> bestCombinations = new HashMap<>();
+		final PackagingHelper packaginHelper = new PackagingHelper();
+		final Map<Double, List<PackagingItem>> bestCombinations = new LinkedHashMap<>();
 		// 81 : (4,72.30,€76)
 		// 8 : (1,15.3,€34)
 		// 75 : (2,14.55,€74) (7,60.02,€74)
 		final List<PackagingItem> firstCombination = new ArrayList<>();
 		firstCombination.add(new PackagingItem(4, 72.30, Double.valueOf(76)));
 		bestCombinations.put(Double.valueOf(81), firstCombination);
-		final String result = "4\n";
+		final List<PackagingItem> secondCombination = new ArrayList<>();
+		bestCombinations.put(Double.valueOf(8), secondCombination);
+		final List<PackagingItem> thirdCombination = new ArrayList<>();
+		thirdCombination.add(new PackagingItem(2, 14.55, Double.valueOf(74)));
+		thirdCombination.add(new PackagingItem(7, 60.02, Double.valueOf(74)));
+		bestCombinations.put(Double.valueOf(75), thirdCombination);
+		final String result = "4\n-\n2,7\n";
 		assertEquals(result, packaginHelper.createPackagesFromBestCombinations(bestCombinations));
 
 	}
