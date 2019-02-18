@@ -1,9 +1,15 @@
 package com.mobiquityinc.model;
 
+/**
+ * Model class representing individual package item forming the packages
+ * 
+ * @author abhijeetshiralkar
+ *
+ */
 public class PackagingItem {
-	
+
 	private Integer indexNumber;
-	
+
 	private Double weight, price;
 
 	public PackagingItem(Integer indexNumber, Double weight, Double price) {
@@ -36,7 +42,5 @@ public class PackagingItem {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
-	
 
 }

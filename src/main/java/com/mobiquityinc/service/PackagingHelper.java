@@ -9,6 +9,12 @@ import java.util.stream.Collectors;
 
 import com.mobiquityinc.model.PackagingItem;
 
+/**
+ * Helper class for {@link PackagingServiceImpl}
+ * 
+ * @author abhijeetshiralkar
+ *
+ */
 public class PackagingHelper {
 
 	/**
@@ -52,6 +58,12 @@ public class PackagingHelper {
 		}
 	}
 
+	/**
+	 * Derive different combinations of packaging items
+	 *
+	 * @param packagingItemsMap
+	 * @return
+	 */
 	public Map<Double, List<List<PackagingItem>>> derivePackagingItemCombinations(
 			Map<Double, List<PackagingItem>> packagingItemsMap) {
 		final Map<Double, List<List<PackagingItem>>> packagingItemCombinations = new LinkedHashMap<>();
@@ -63,11 +75,23 @@ public class PackagingHelper {
 		return packagingItemCombinations;
 	}
 
+	/**
+	 * Derive final String containing package indices
+	 *
+	 * @param packagingCombinations
+	 * @return
+	 */
 	public String deriveFinalPackages(Map<Double, List<List<PackagingItem>>> packagingCombinations) {
 		final Map<Double, List<PackagingItem>> bestCombinations = getBestCombinations(packagingCombinations);
 		return createPackagesFromBestCombinations(bestCombinations);
 	}
 
+	/**
+	 * Get all possible combinations from the list of packaging items
+	 *
+	 * @param items
+	 * @return
+	 */
 	protected List<List<PackagingItem>> getCombinations(List<PackagingItem> items) {
 		final List<List<PackagingItem>> combinations = new ArrayList<>();
 		items.forEach(item -> {
@@ -86,6 +110,13 @@ public class PackagingHelper {
 		return combinations;
 	}
 
+	/**
+	 * Create String containing packaging indices for the best combinations meeting
+	 * the required criteria
+	 *
+	 * @param bestCombinations
+	 * @return
+	 */
 	protected String createPackagesFromBestCombinations(Map<Double, List<PackagingItem>> bestCombinations) {
 		final StringBuilder packages = new StringBuilder();
 		for (final Map.Entry<Double, List<PackagingItem>> entry : bestCombinations.entrySet()) {
@@ -103,6 +134,12 @@ public class PackagingHelper {
 		return packages.toString();
 	}
 
+	/**
+	 * Get the best packaging combinations meeting the required criteria
+	 *
+	 * @param packagingCombinations
+	 * @return
+	 */
 	protected Map<Double, List<PackagingItem>> getBestCombinations(
 			Map<Double, List<List<PackagingItem>>> packagingCombinations) {
 		final Map<Double, List<PackagingItem>> bestCombinations = new LinkedHashMap<>();
@@ -131,6 +168,12 @@ public class PackagingHelper {
 		return bestCombinations;
 	}
 
+	/**
+	 * Get the total price for the combination of packaging items
+	 *
+	 * @param combination
+	 * @return
+	 */
 	protected Double getCombinationPrice(List<PackagingItem> combination) {
 		Double combinationPrice = Double.valueOf(0);
 		for (final PackagingItem item : combination) {
@@ -139,6 +182,12 @@ public class PackagingHelper {
 		return combinationPrice;
 	}
 
+	/**
+	 * Get the total weight for the combination of packaging items
+	 *
+	 * @param combination
+	 * @return
+	 */
 	protected Double getCombinationWeight(List<PackagingItem> combination) {
 		Double combinationWeight = Double.valueOf(0);
 		for (final PackagingItem item : combination) {
